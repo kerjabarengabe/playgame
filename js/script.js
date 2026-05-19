@@ -240,6 +240,7 @@ function goFullscreen() {
 }
 document.addEventListener("click", () => {
   goFullscreen();
+  scaleGame();
 }, { once: true });
 
 
