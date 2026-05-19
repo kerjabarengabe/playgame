@@ -164,7 +164,6 @@ body {
 
 .back {
   transform: rotateY(180deg);
-  background-color: #6589F9;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
