@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <title>Memory Game</title>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/png" href="img/mushroom.png">
+</head>
+
+<body>
+  <div id="stage">
+  <!-- UI HEADER -->
+  <div class="ui">
+    <h1 class="title">Memory Game</h1>
+
+    <div class="hud">
+      <div class="box">
+        Score: <span id="score">0</span>
+      </div>
+
+      <div class="box">
+        Time: <span id="time">4</span>
+      </div>
+
+      <button class="btn" onclick="resetGame()">
+        <span class="icon">⟲</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- GAME AREA -->
+  <div id="game"></div>
+  </div>
+
+<div id="overlay" class="overlay hidden">
+  <div class="panel">
+
+    <h1 id="overlayTitle">Game Over</h1>
+
+    <div class="stats">
+      <div>Score: <span id="finalScore">0</span></div>
+      <div>Moves: <span id="finalMoves">0</span></div>
+    </div>
+
+    <button class="btn" onclick="resetGame()">Play Again</button>
+
+  </div>
+</div>
+    
+  <script src="js/script.js"></script>
+</body>
+
+</html>
