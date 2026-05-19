@@ -208,25 +208,43 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
+const BASE_W = 900;
+const BASE_H = 1440;
 
+function getVW() {
+  return window.visualViewport?.width || window.innerWidth;
+}
+
+function getVH() {
+  return window.visualViewport?.height || window.innerHeight;
+}
 
 function scaleGame() {
   const wrapper = document.getElementById("game-wrapper");
+  if (!wrapper) return;
 
-  const baseH = 1440;
-  const baseW = 900;
+  const vw = window.visualViewport?.width || window.innerWidth;
+  const vh = window.visualViewport?.height || window.innerHeight;
 
-  const scaleX = window.innerWidth / baseW;
-  const scaleY = window.innerHeight / baseH;
-
-  const scale = Math.min(scaleX, scaleY);
+  const scale = Math.min(vw / BASE_W, vh / BASE_H);
 
   wrapper.style.transform =
     `translate(-50%, -50%) scale(${scale})`;
 }
 
-window.addEventListener("resize", scaleGame);
-window.addEventListener("load", scaleGame);
+function initArcadeMode() {
+  scaleGame();
+
+  const safeScale = () => requestAnimationFrame(scaleGame);
+
+  window.addEventListener("resize", safeScale);
+  window.addEventListener("orientationchange", () => {
+    setTimeout(safeScale, 150);
+  });
+
+  window.visualViewport?.addEventListener("resize", safeScale);
+}
+
 function goFullscreen() {
   const elem = document.documentElement;
 
@@ -240,11 +258,13 @@ function goFullscreen() {
 }
 document.addEventListener("click", () => {
   goFullscreen();
+  initArcadeMode();
 }, { once: true });
 document.addEventListener("fullscreenchange", () => {
-  scaleGame();
+  setTimeout(() => {
+    requestAnimationFrame(scaleGame);
+  }, 50);
 });
-
 
 // ================= START =================
 buildGrid();
